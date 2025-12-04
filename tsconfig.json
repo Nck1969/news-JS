@@ -10,7 +10,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "target": "esnext",
-    "types": [],
+    "types": ["node"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
     // For nodejs:
     // "lib": ["esnext"],
@@ -21,6 +21,8 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+
+    "noImplicitAny": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,

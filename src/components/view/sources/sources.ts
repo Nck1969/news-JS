@@ -1,21 +1,46 @@
 import './sources.css';
 
+type TSource = {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  category: string;
+  language: string;
+  country: string;
+};
+
 class Sources {
-  draw(data) {
+  public draw(data: TSource[]) {
     const fragment = document.createDocumentFragment();
-    const sourceItemTemp = document.querySelector('#sourceItemTemp');
+    const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
+
+    if (sourceItemTemp === null) {
+      throw new Error('Source item template not found');
+    }
 
     data.forEach((item) => {
-      const sourceClone = sourceItemTemp.content.cloneNode(true);
+      const sourceClone = sourceItemTemp.content.cloneNode(true) as DocumentFragment;
 
-      sourceClone.querySelector('.source__item-name').textContent = item.name;
-      sourceClone.querySelector('.source__item').setAttribute('data-source-id', item.id);
+      const sourceItem = sourceClone.querySelector('.source__item') as HTMLElement;
+      const sourceItemName = sourceItem.querySelector('.source__item-name') as HTMLElement;
+
+      sourceItem.setAttribute('data-source-id', item.id);
+      sourceItemName.textContent = item.name;
 
       fragment.append(sourceClone);
     });
 
-    document.querySelector('.sources').append(fragment);
+    const sourcesContainer = document.querySelector('.sources');
+
+    if (sourcesContainer === null) {
+      throw new Error('Sources container not found');
+    }
+
+    sourcesContainer.append(fragment);
   }
 }
 
 export default Sources;
+
+export type { TSource };
